@@ -803,10 +803,17 @@ export interface IEventNamePropertyMapping {
     [EventName.PYTHON_INSTALL_PACKAGE]: {
         /**
          * The name of the module. (pipenv, Conda etc.)
-         *
-         * @type {string}
+         * One of the possible values includes `unavailable`, meaning user doesn't have pip, conda, or other tools available that can be used to install a python package.
          */
         installer: string;
+        /**
+         * Name of the corresponding product (package) to be installed.
+         */
+        productName?: string;
+        /**
+         * Whether the product (package) has been installed or not.
+         */
+        isInstalled?: boolean;
     };
     /**
      * Telemetry sent with details immediately after linting a document completes
@@ -1266,6 +1273,21 @@ export interface IEventNamePropertyMapping {
          * @type {string}
          */
         error?: string;
+    };
+    /**
+     * Telemetry event sent once on session start with details on which experiments are opted into and opted out from.
+     */
+    [EventName.PYTHON_EXPERIMENTS_OPT_IN_OPT_OUT_SETTINGS]: {
+        /**
+         * List of valid experiments in the python.experiments.optInto setting
+         * @type {string[]}
+         */
+        optedInto: string[];
+        /**
+         * List of valid experiments in the python.experiments.optOutFrom setting
+         * @type {string[]}
+         */
+        optedOutFrom: string[];
     };
     /**
      * Telemetry event sent when LS is started for workspace (workspace folder in case of multi-root)
